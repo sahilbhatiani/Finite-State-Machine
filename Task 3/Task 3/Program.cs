@@ -7,6 +7,7 @@ using System.Runtime.Versioning;
 using System.Threading;
 using System.Transactions;
 using System.Xml.Serialization;
+using System.Dynamic;
 
 namespace Task_3
 {
@@ -77,6 +78,7 @@ namespace Task_3
     {
         static void Main(string[] args)
         {
+
             FST_functions Func = new FST_functions();
 
             var S0_a = new FiniteStateTable.Do[2] { Func.X, Func.Y };
@@ -102,17 +104,40 @@ namespace Task_3
             FSM_1.SetNextState(1, 2, 2); FSM_1.SetActions(1, 2, S2_b);
             FSM_1.SetNextState(2, 2, 1); FSM_1.SetActions(2, 2, S2_c);
 
+            //MACHINE 2
+            var SA_a = new FiniteStateTable.Do[1] { Func.Do_Nothing };
+
+            var SB_S1 = new FiniteStateTable.Do[3] { Func.J, Func.K, Func.L };
+            
+            var SA_S1 = new FiniteStateTable.Do[1] { Func.Do_Nothing };
+            
+            var SB_a = new FiniteStateTable.Do[1] { Func.Do_Nothing };
+
+            var FSM_2 = new FiniteStateTable(2, 2, 1);
+
+            FSM_2.SetNextState(0, 0, 1); FSM_2.SetActions(0, 0, SA_a);
+            FSM_2.SetNextState(0, 1, 1); FSM_2.SetActions(0, 1, SB_a);
+            FSM_2.SetNextState(1, 0, 0); FSM_2.SetActions(1, 0, SA_S1);
+            FSM_2.SetNextState(1, 1, 0); FSM_2.SetActions(1, 1, SB_S1);
 
 
-            Console.WriteLine("Now in state " + FSM_1.GetCurrentState() as String);
+
+
+
+            Console.WriteLine("Machine 1 Now in state " + FSM_1.GetCurrentState() as String);
+            Console.WriteLine("Machine2 is now in state SA");
             var logData = new List<string>();
             while (true)
             {
 
+
+
                 bool ErrorKey = false;
+                
 
                 Console.Write("Press key a,b,c or q: ");
                 var key = Console.ReadKey().Key;
+
                 logData.Add(DateTime.Now + " Key: " + key.ToString());
                 Console.WriteLine();       // <-- This writes a newline.
 
@@ -122,6 +147,8 @@ namespace Task_3
                 else if (key == ConsoleKey.Q) { break; }
                 else { ErrorKey = true; }
 
+
+                //if ((FSM_1.GetNextState() == FSM_1.GetCurrentState()) && !ErrorKey) { Console.WriteLine("Machine 1 is still in state S" + FSM_1.GetCurrentState() as String); }
                 if ((FSM_1.GetNextState() != FSM_1.GetCurrentState()) && !ErrorKey)
                 {
                     var actions = FSM_1.GetActions();
@@ -136,6 +163,37 @@ namespace Task_3
 
                 Console.WriteLine();       // <-- This writes a newline.
                 Console.WriteLine();       // <-- This writes a newline.
+
+
+                //MACHINE 2 STUFF
+                bool ErrorKey2 = false;
+                if (key.ToString() == ConsoleKey.A.ToString() && FSM_1.GetCurrentState() != 1) { FSM_2.UpdateEvent(0); }
+                else if (FSM_1.GetCurrentState() == 1) { FSM_2.UpdateEvent(1); }
+                else { ErrorKey2 = true; }
+
+                
+                if ((FSM_2.GetNextState() != FSM_2.GetCurrentState()) && !ErrorKey2)
+                {
+                    var actions2 = FSM_2.GetActions();
+                    foreach (FiniteStateTable.Do i in actions2) {
+                        ThreadStart threadDelegate = new ThreadStart(i);
+                        Thread newThread = new Thread(threadDelegate);
+                        newThread.Start();
+                    }
+                    FSM_2.UpdateState(FSM_2.GetNextState());
+                    if (FSM_2.GetCurrentState() == 0) { Console.WriteLine("Machine 2 is now in state SA"); }
+                    else { Console.WriteLine("Machine 2 is now in state SB"); }
+
+                }
+
+                /* Need to fix bug 
+                if ((FSM_2.GetNextState() == FSM_2.GetCurrentState()) && !ErrorKey) {
+                    if (FSM_2.GetCurrentState() == 0) { Console.WriteLine("Machine 2 is still in state SA"); }
+                    else { Console.WriteLine("Machine 2 is still in state SB"); }
+                }
+
+                */
+
 
             }
 
@@ -164,6 +222,14 @@ namespace Task_3
             Environment.Exit(0);
 
         }
+
+        public static void FirstMachine() { 
+        
+        
+        }
+
+       
+
     }
 
 
@@ -176,12 +242,35 @@ namespace Task_3
         public void Y() { Console.WriteLine("Action Y"); Func_text = "Action Y"; }
         public void W() { Console.WriteLine("Action W"); Func_text = "Action W"; }
         public void Z() { Console.WriteLine("Action Z"); Func_text = "Action Z"; }
+        public void J() { Console.WriteLine("Action J"); Func_text = "Action J"; }
+        public void K() { Console.WriteLine("Action K"); Func_text = "Action K"; }
+        public void L() { Console.WriteLine("Action L"); Func_text = "Action L"; }
         public string GetAction_in_String_Form() { return Func_text; }
 
     }
+
+
+
+
+                             /*        SA             SB                
+                        ------------------------------------------
+                        |                                         | 
+                        |     {SB,do_nothing}     {SB,Do nothing} | a
+                        |                                         |
+                        |                                         |
+                        |     {SA,do_Nothing}    SA,(J,K,L)       | if (S1 == true)
+                         -----------------------------------------
+ 
+                         */
+
+
+
+
+    
 
 }
 
 
 
+   
 

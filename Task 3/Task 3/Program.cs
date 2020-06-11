@@ -23,11 +23,8 @@ namespace Task_3
 
 
         //Constructors
-        public FiniteStateTable()
-        {
-            //Not sure what to add in here
-        }
-
+        public FiniteStateTable() { }
+        
         public FiniteStateTable(int Events, int States)
         {
             FST = new cell_FST[Events, States];
@@ -56,21 +53,8 @@ namespace Task_3
 
         */
 
-
+        
     }
-
-    /*        S0             S1               S2  
--------------------------------------------------------
-|     {S1,(X,Y)}      {S0,(W)}          {S0,(W)}       | a
-|                                                      |    
-|  {S0,do_nothing}   {S2,(X,Z)}      {S2,do_nothing}   | b
-|                                                      |
-|  {S0,do_nothing} {S1,do_nothing}     {S1,(X,Y)}      | c
-|                                                      |
- ------------------------------------------------------
-
- */
-
 
 
 
@@ -92,6 +76,7 @@ namespace Task_3
             var S2_c = new FiniteStateTable.Do[2] { Func.X, Func.Y };
 
             var FSM_1 = new FiniteStateTable(3, 3, 0);
+
 
             //Format -> ( Event,  State , input value)
             FSM_1.SetNextState(0, 0, 1); FSM_1.SetActions(0, 0, S0_a);
@@ -250,27 +235,44 @@ namespace Task_3
     }
 
 
+    /*                                     S0             S1               S2  
+                         -------------------------------------------------------
+                         |     {S1,(X,Y)}      {S0,(W)}          {S0,(W)}       | a
+                         |                                                      |    
+                         |  {S0,do_nothing}   {S2,(X,Z)}      {S2,do_nothing}   | b             
+                         |                                                      |
+                         |  {S0,do_nothing} {S1,do_nothing}     {S1,(X,Y)}      | c
+                         |                                                      |
+                          ------------------------------------------------------
+                                         Finite State Table 1
+
+ --------------------------------------------------------------------------------------------------------------
+
+                                              SA             SB                
+                                ------------------------------------------
+                                |                                         | 
+                                |     {SB,do_nothing}     {SB,Do nothing} | a
+                                |                                         |
+                                |                                         |
+                                |     {SA,do_Nothing}    SA,(J,K,L)       | if (S1 == true)
+                                 -----------------------------------------
+                                           Finite State Table 2
 
 
-                             /*        SA             SB                
-                        ------------------------------------------
-                        |                                         | 
-                        |     {SB,do_nothing}     {SB,Do nothing} | a
-                        |                                         |
-                        |                                         |
-                        |     {SA,do_Nothing}    SA,(J,K,L)       | if (S1 == true)
-                         -----------------------------------------
- 
-                         */
+
+
+ */
 
 
 
 
-    
+
+
+
 
 }
 
 
 
-   
+
 

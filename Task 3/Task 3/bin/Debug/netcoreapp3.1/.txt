@@ -1,0 +1,5 @@
+Welcome to Log of Task 2
+13/06/2020 3:00:25 pm Key: A 
+13/06/2020 3:00:25 pm Action X 13/06/2020 3:00:25 pm Action Y 13/06/2020 3:00:25 pm Machine 1 Now in state S1 
+13/06/2020 3:00:25 pm Action L 13/06/2020 3:00:25 pm Action L 13/06/2020 3:00:25 pm Action L 13/06/2020 3:00:25 pm Machine 2 is now in state SA 13/06/2020 3:00:26 pm Key: Q 
+

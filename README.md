@@ -1,1 +1,5 @@
-# Task3_313Assignment
+# Finite State Machine
+
+Coded in C
+
+Finite State Table: 

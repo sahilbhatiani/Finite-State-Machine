@@ -1,0 +1,10 @@
+{
+  "version": 2,
+  "dgSpecHash": "D6QrR/GMBFe/R5m2rPwyewV0My9c1TbJ7r+l4Sol15YqFgrqQwVvAXgRKBjW8KyczawRmsBNdsTrjLwzDdvgMQ==",
+  "success": true,
+  "projectFilePath": "C:\\Users\\sahil\\Desktop\\dwadaw\\Finite-State-Machine\\FiniteStateMachine\\FiniteStateMachine\\FiniteStateMachine.csproj",
+  "expectedPackageFiles": [
+    "C:\\Users\\sahil\\.nuget\\packages\\microsoft.aspnetcore.app.ref\\3.1.2\\microsoft.aspnetcore.app.ref.3.1.2.nupkg.sha512"
+  ],
+  "logs": []
+}

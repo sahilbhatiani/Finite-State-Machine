@@ -1,5 +1,5 @@
 # Finite State Machine
 
-Coded in C
+Coded in C#
 
 Finite State Table: 

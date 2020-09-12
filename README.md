@@ -1,7 +1,5 @@
 # Finite-State-Machine
 
-Coded in C#
-
 Finite State Table:
 
                                 S0             S1               S2  
